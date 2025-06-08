@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>QUAX-Uploader</title>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   </head>
   <body>
     <div id="app">
-      <form action="." method="post">
+      <form action="." method="post" >
+        <div class="h-captcha" data-sitekey="your_site_key"></div>
          <input type="file" name="file">
       </form>
     </div>

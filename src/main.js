@@ -5,4 +5,9 @@ import * as FilePond from 'filepond';
 const inputElement = document.querySelector('input[type="file"]');
 
 // Create a FilePond instance
-const pond = FilePond.create(inputElement);
+const pond = FilePond.create(
+  inputElement,
+  {
+    credits: [],
+  }
+);
