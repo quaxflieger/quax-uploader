@@ -10,6 +10,30 @@
   <body>
     <div id="app">
       <form action="." method="post" >
+        <div>
+          <label for="id_copyright_name">Name (für Copyright-Hinweise)*</label>
+          <input id="id_copyright_name" name="copyright_name" type="text" />
+        </div>
+
+        <div>
+          <label for="id_event_name">QUAX-Veranstaltung</label>
+          <input id="id_event_name" name="event_name" type="text" />
+        </div>
+
+        <div>
+          <label>Verwendung*</label>
+          <input type="radio" value="public" id="id_radio_public"><label for="id_radio_public">öffentlich</label>
+          <input type="radio" value="public" id="id_radio_internal"><label for="id_radio_internal">nur vereins-intern</label>
+          <input type="radio" value="public" id="id_radio_public"><label for="id_radio_public">andere</label>
+        </div>
+
+        <div>
+          <label for="id_additional_info">Weitere Infos oder Hinweis zu Deiner Einsendung</label>
+          <textarea id="id_additional_info" name="additional_info">
+
+          </textarea>
+        </div>
+        
         <div class="h-captcha" data-sitekey="your_site_key"></div>
          <input type="file" name="file">
       </form>
