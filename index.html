@@ -2,16 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/img/QuaxMotorFaviocon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Uwe Kamper">
     <title>QUAX-Uploader</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/QuaxMotorFavicon.png">
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   </head>
-  <body>
+  <body class="quax-body">
+    <div>
+      <a href="https://quax-flieger.de/"><img src="/img/nav-logo-QX.png" style="width: 350px; margin-top: 25px;"></a>
+    </div>
     <div id="app">
+      <div>
+        <h3>Schritt 1: Bist du ein Mensch?</h3>
+        <div class="h-captcha" data-sitekey="your_site_key"></div>
+      </div>
       <form action="." method="post" >
         <div>
           <label for="id_copyright_name">Name (für Copyright-Hinweise)*</label>
+          <input id="id_copyright_name" name="copyright_name" type="text" required="true" />
+        </div>
+
+        <div>
+          <label for="id_copyright_name">E-Mail-Adresse (für Rückfragen)</label>
           <input id="id_copyright_name" name="copyright_name" type="text" />
         </div>
 
@@ -22,9 +36,9 @@
 
         <div>
           <label>Verwendung*</label>
-          <input type="radio" value="public" id="id_radio_public"><label for="id_radio_public">öffentlich</label>
-          <input type="radio" value="public" id="id_radio_internal"><label for="id_radio_internal">nur vereins-intern</label>
-          <input type="radio" value="public" id="id_radio_public"><label for="id_radio_public">andere</label>
+          <input name="usage" type="radio" value="public" id="id_radio_public"><label for="id_radio_public">öffentlich</label>
+          <input name="usage" type="radio" value="internal" id="id_radio_internal"><label for="id_radio_internal">nur vereins-intern</label>
+          <input name="usage" type="radio" value="other" id="id_radio_other"><label for="id_radio_other">andere</label>
         </div>
 
         <div>
@@ -34,8 +48,9 @@
           </textarea>
         </div>
         
-        <div class="h-captcha" data-sitekey="your_site_key"></div>
          <input type="file" name="file">
+
+         <input type="submit" value="Abschicken">
       </form>
     </div>
     <script type="module" src="/src/main.js"></script>

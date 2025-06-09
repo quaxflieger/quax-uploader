@@ -1,5 +1,27 @@
 @import 'filepond/dist/filepond.min.css';
 
+@font-face {
+  font-family: 'trade gothic b con 2';
+  src: url('/fonts/84c568ba-a16d-43bb-ad9f-783ab985108f.ttf') format('truetype'), url('/fonts/c9083b7e-ba26-4e45-8f1b-34ad32e924e5.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'trade gothic bold';
+  src: url('/fonts/3e9c6e62-e41c-408b-bef3-ffa454301b17.woff') format('woff'), url('/fonts/a74675c3-a15b-41ed-8409-e90f921c3cb8.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'trade gothic light';
+  src: url('/fonts/3490ccd3-6e42-49ba-9733-7af1e400a3b4.woff') format('woff'), url('/fonts/c44646ee-cf36-4809-92b4-9b4f292a2ca1.ttf') format('truetype');
+  font-weight: normal;
+}
+
+/* $font-bold: 'trade gothic b con 2', Helvetica, sans-serif; */
+/* $font-light: 'trade gothic light', Helvetica, sans-serif; */
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -26,10 +48,21 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: block;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+body.quax-body {
+  font-family: 'trade gothic light', Helvetica, sans-serif;
+  font-weight: normal;
+  background-color: #fff0c7;
+  background-image: url('/img/Quax-Intranet-BG.jpg');
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  font-size: 16px;
+  color: #4a4438;
 }
 
 h1 {
@@ -37,7 +70,17 @@ h1 {
   line-height: 1.1;
 }
 
+h3 {
+  font-weight: 700;
+  font-size: 1.75rem;
+  font-family: "trade gothic bold", Helvetica, sans-serif;
+}
+
 #app {
+  border: 1px solid lime; 
+  display: flex;
+  flex-direction: row;
+  align-content: start;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -46,6 +89,10 @@ h1 {
 
 #app form {
   width: 300px;
+}
+
+#app div {
+  border: 1px solid red;
 }
 
 button {
