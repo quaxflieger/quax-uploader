@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "filepond-plugin-image-preview": "^4.6.12"
   }
 }

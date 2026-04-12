@@ -1,4 +1,5 @@
 @import 'filepond/dist/filepond.min.css';
+@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 @font-face {
   font-family: 'trade gothic b con 2';
@@ -47,11 +48,12 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  padding: 0 0 80px 0;
   display: block;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
 }
 
 body.quax-body {
@@ -76,24 +78,53 @@ h3 {
   font-family: "trade gothic bold", Helvetica, sans-serif;
 }
 
-#app {
-  border: 1px solid lime; 
-  display: flex;
-  flex-direction: row;
-  align-content: start;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.logo {
   text-align: center;
 }
 
-#app form {
-  width: 300px;
+.logo img {
+  margin-left: -40px;
 }
 
-#app div {
-  border: 1px solid red;
+.title {
+  margin-left: 0px;
+  font-size: 5.2em;
+  font-weight: 700;
+  font-family: 'trade gothic b con 2';
 }
+
+#app {
+  /* border: 1px solid lime; */
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.65);
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  min-width: 60%;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 20px;
+}
+
+.form-step {
+  padding: 0px 20px 10px 20px;
+  flex: 1 1 0px;
+  text-align: left;
+}
+
+.form-step-divider {
+  width: 100%;
+  padding: 5px 0px 5px 0px;
+}
+
+.form-step-divider hr {
+  border-top: dotted;
+}
+
+/*#app form {
+  width: 300px;
+}*/
+
 
 button {
   border-radius: 8px;
