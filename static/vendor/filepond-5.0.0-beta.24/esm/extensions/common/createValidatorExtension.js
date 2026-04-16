@@ -1,0 +1,148 @@
+/*!
+* FilePond v5.0.0-beta.24
+* Copyright (c) 2017-2026 Pqina B.V.
+* Released under the MIT License
+* https://filepond.com
+*/
+import { createExtension as w } from "./createExtension.js";
+import { isFileEntry as V, isBlobOrFile as F, isFile as b } from "../../utils/test.js";
+import { Status as n } from "../../common/status.js";
+import { upperCaseFirstLetter as M } from "../../utils/string.js";
+function j(I, y, A) {
+  return w(I, y, (u, d) => {
+    const { didSetProps: h, props: c } = u, {
+      setExtensionStatus: U,
+      getEntries: L,
+      on: f,
+      pushTask: o,
+      abortTask: D,
+      setEntryExtensionStatus: i,
+      getEntryExtensionStatus: g,
+      setEntryExtensionState: l,
+      getEntryExtensionState: r
+    } = d, {
+      // by default can only validate a blob/file
+      canValidateEntry: O = (t) => V(t) && F(t.file),
+      // by default all validate entry returns "all is well" state
+      validateEntry: S = () => null
+    } = A(u, d);
+    h(() => {
+      T();
+    });
+    function T() {
+      for (const t of L())
+        E(t);
+    }
+    function E(t) {
+      const { canValidate: a } = r(t);
+      a !== null && l(t, {
+        // null means it's undetermined if we can validate, need to retest
+        canValidate: null,
+        // null means it's undetermined if we should validate, need to retest
+        shouldValidate: null,
+        // reset status
+        status: {
+          type: n.System,
+          code: "VALIDATION_LIMBO",
+          values: null,
+          meta: null
+        }
+      });
+    }
+    async function m(t) {
+      i(t, {
+        type: n.System,
+        code: "VALIDATION_BUSY",
+        progress: 1 / 0
+      });
+      let a;
+      try {
+        a = await S(t);
+      } catch (s) {
+        throw i(t, {
+          type: n.Error,
+          code: "VALIDATION_ERROR",
+          values: { error: s }
+        }), s;
+      }
+      let e = "unknown";
+      if (V(t) && b(t.file) && (e = `fileMainType${M(t.file.type.split("/").shift() ?? "")}`), i(
+        t,
+        a ? {
+          type: n.Error,
+          code: "VALIDATION_INVALID",
+          subcode: a.code,
+          values: {
+            ...a.values,
+            fileMainType: e
+          }
+        } : {
+          type: n.System,
+          code: "VALIDATION_COMPLETE"
+        }
+      ), a)
+        return !1;
+    }
+    async function N(t) {
+      const { shouldValidate: a } = c;
+      if (!a)
+        return;
+      const e = await a(t);
+      l(t, {
+        shouldValidate: e,
+        // have determined if we should validate, switch to idle
+        status: {
+          type: n.System,
+          code: "VALIDATION_IDLE"
+        }
+      });
+    }
+    async function p(t) {
+      let a;
+      try {
+        a = await O(t);
+      } catch (e) {
+        throw i(t, {
+          type: n.Error,
+          code: "VALIDATION_ERROR",
+          values: { error: e }
+        }), e;
+      }
+      l(t, {
+        canValidate: a,
+        // have determined if we can validate, switch to idle
+        status: {
+          type: n.System,
+          code: "VALIDATION_IDLE"
+        }
+      });
+    }
+    function _(t) {
+      const { canValidate: a } = r(t);
+      a !== null && (D(t.id, p), E(t));
+    }
+    function x(t) {
+      const { canValidate: a, shouldValidate: e, status: s } = r(t), k = s?.code === "VALIDATION_COMPLETE";
+      if (!(s?.type === "error" || k || a === !1 || e === !1)) {
+        if (a === null) {
+          o(t.id, p);
+          return;
+        }
+        if (c.shouldValidate && e === null) {
+          o(t.id, N);
+          return;
+        }
+        a === !0 && o(t.id, m);
+      }
+    }
+    const v = f("updateEntryData", _), R = f("updateEntry", x);
+    return {
+      destroy() {
+        R(), v();
+      }
+    };
+  });
+}
+export {
+  j as createValidatorExtension
+};
