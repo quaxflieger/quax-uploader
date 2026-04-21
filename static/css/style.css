@@ -167,31 +167,37 @@ button:focus-visible {
   margin-right: 40px;
 }
 
-file-pond::part(list) {
-    
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 150px);
+.filepond--item {
+    width: calc(25% - 0.5em);
 }
 
-file-pond {
-    --default-backdrop-filter: none;
-    --default-color: #000;
-    --default-border: 3px gray dashed;
-    --default-background-color: #fff;
-}
-
-file-pond::part(drop-area) {
-  background-color: #ffffff;
-  border-radius: 1.25em;
-  min-height: 160px;
-}
-
-file-pond::part(drop-indicator) {
-  height: 160px;
+.filepond--panel-root {
+    background-color: white;
+    border: 3px solid gray;
 }
 
 
-file-pond::part(browse-button) {
-  background-color: #ffffff;
+.filepond--drop-label {
+  background-color: transparent;
+  /*border: 3px solid gray;
+  background-color: #ffffff;*/
+}
+/* disable enter/leave animations */
+.filepond--item {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* if you use filepond--item-wrapper or other classes */
+.filepond--item-wrapper,
+.filepond--image-preview-wrapper,
+.filepond--panel {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Limiting the height of FilePond */
+.filepond--root {
+  background-color: #fff;
+    max-height: 50em;
 }

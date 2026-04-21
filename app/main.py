@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional, Annotated
 
 import aiofiles
-from fastapi import Depends, FastAPI, Request, Header, HTTPException, Response, status
+from fastapi import Depends, FastAPI, Request, Header, HTTPException, Response, status, File, UploadFile
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import PlainTextResponse
@@ -67,28 +67,39 @@ async def get_current_offset(transfer_id: str) -> int:
 
 @app.post("/upload/", response_class=PlainTextResponse, status_code=201)
 async def create_transfer(
+    files: Annotated[bytes, File()],
+    request: Request,
     upload_length: Annotated[str | None, Header()] = None,
 ):
     """
     Starts a chunked transfer. Expects Upload-Length header with total file size.
     Returns a plain-text transfer id.
     """
-    if upload_length is None:
-        raise HTTPException(status_code=400, detail="Missing Upload-Length header")
+    # Upload-Length is only available in FilePind v5
+    #if upload_length is None:
+    #    raise HTTPException(status_code=400, detail="Missing Upload-Length header")
+
+    
 
     transfer_id = uuid7str()
     d = get_transfer_dir(transfer_id)
     d.mkdir(parents=True, exist_ok=False)
+    
+    upload_length = len(files)
+    print("upload-length: %s" % upload_length)
+    # # Save some metadata, upload name is a placeholder
+    # meta = {
+    #     "upload_length": str(upload_length),
+    #     "upload_name": "",
+    # }
+    # meta_file = d / "meta.txt"
+    # async with aiofiles.open(meta_file, "w") as f:
+    #     for k, v in meta.items():
+    #         await f.write(f"{k}:{v}\n")
 
-    # Save some metadata, upload name is a placeholder
-    meta = {
-        "upload_length": str(upload_length),
-        "upload_name": "",
-    }
-    meta_file = d / "meta.txt"
-    async with aiofiles.open(meta_file, "w") as f:
-        for k, v in meta.items():
-            await f.write(f"{k}:{v}\n")
+    tmp_file = d / "upload.bin"
+    async with aiofiles.open(tmp_file, "wb") as f:
+        await f.write(files)
 
     # Return transfer id in plain text (FilePond expects body text with id)
     return PlainTextResponse(content=transfer_id, status_code=201)

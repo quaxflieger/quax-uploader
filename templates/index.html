@@ -70,11 +70,7 @@
         </p>
         <form>
         <form action="/upload" method="POST">
-            <label for="my-file">Dateien</label>
-            <file-pond>
-                <input id="my-file" type="file" name="files" multiple required />
-            </file-pond>
-
+            <input id="my-file" type="file" name="files" multiple required />
             <button type="submit">Upload</button>
         </form>
       </div>
@@ -84,37 +80,22 @@
         var upload_id="{{ upload_id }}";
     </script>
     <script type="module">
-        import { defineFilePond } from 'filepond';
-        import { locale } from 'filepond/esm/locales/de-de.js';
-        import { DragDropSource } from 'filepond/esm/extensions/drag-drop-source.js';
-        import { ChunkedUploadStore } from 'filepond/esm/extensions/chunked-upload-store.js';
-        import { createFilePondEntryList, appendEntryImageView, appendEntryVideoView} from 'filepond/esm/templates/index.js';
-        // Add image view to default template
-        const template = createFilePondEntryList();
-        appendEntryImageView(template, {
-            // Image view options
-        });
-        appendEntryVideoView(template, {
-            // Video view options
-        });
+        // Get a reference to the file input element
+        const inputElement = document.getElementById('my-file');
 
-        defineFilePond({
-            locale,
-            // Set custom template
-            EntryListView: {
-                template,
-            },
-            extensions: [
-                [
-                    ChunkedUploadStore,
-                    {
-                        // The URL the store will send files to
-                        url: '/upload/',
-                        // When a file is added, just store it immediately
-                        shouldStore: (entry) => true,
-                    },
-                ],
-            ],
+        // Create a FilePond instance
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        FilePond.registerPlugin(FilePondPluginImageExifOrientation);
+
+        const pond = FilePond.create(inputElement, {
+            server: '/upload/',
+            allowMultiple: true,
+            labelIdle: 'Dateien per Drag & Drop hierhin ziehen oder <span class="filepond--label-action"> Durchsuchen </span>',
+            labelFileProcessing: 'Upload',
+            labelFileProcessingComplete: "Fertig",
+            labelFileProcessingAborted: "Abgebrochen",
+            labelTapToCancel: "Tippen zum Abbrechen",
+            labelTapToUndo: "Tippen zum Löschen"
         });
     </script>
   </body>
