@@ -78,15 +78,11 @@ async def create_transfer(
     # Upload-Length is only available in FilePind v5
     #if upload_length is None:
     #    raise HTTPException(status_code=400, detail="Missing Upload-Length header")
-
-    
-
     transfer_id = uuid7str()
     d = get_transfer_dir(transfer_id)
     d.mkdir(parents=True, exist_ok=False)
     
     upload_length = len(files)
-    print("upload-length: %s" % upload_length)
     # # Save some metadata, upload name is a placeholder
     # meta = {
     #     "upload_length": str(upload_length),
@@ -96,11 +92,11 @@ async def create_transfer(
     # async with aiofiles.open(meta_file, "w") as f:
     #     for k, v in meta.items():
     #         await f.write(f"{k}:{v}\n")
-
+    
     tmp_file = d / "upload.bin"
     async with aiofiles.open(tmp_file, "wb") as f:
         await f.write(files)
-
+    
     # Return transfer id in plain text (FilePond expects body text with id)
     return PlainTextResponse(content=transfer_id, status_code=201)
 
