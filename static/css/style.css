@@ -94,11 +94,6 @@ h2 {
   font-family: 'trade gothic b con 2';
 }
 
-@media (min-width: 576px) { 
-  #app {
-    width: 100vw;
-  }
-}
 
 .footer {
   margin-top: 1em;
@@ -126,6 +121,24 @@ h2 {
   overflow: hidden
 }
 
+@media (min-width: 576px) { 
+  #app {
+    width: 100vw;
+  }
+}
+
+@media (min-width: 768px) {
+  #app {
+    width: 80%;
+  }
+}
+
+@media (min-width: 992px) {
+  #app {
+    width: 60%;
+  }
+}
+
 
 
 .form-step {
@@ -138,18 +151,13 @@ h2 {
 }
 
 .form-step-divider {
-  width: (100% 
+  width: 100%;
   padding: 5px 0px 5px 0px;
 }
 
 .form-step-divider hr {
   border-top: dotted;
 }
-
-/*#app form {
-  width: 300px;
-}*/
-
 
 button {
   border-radius: 8px;
