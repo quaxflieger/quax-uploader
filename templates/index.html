@@ -9,7 +9,7 @@
     <div id="app">
       
       <div class="form-step">
-        <h3>Schritt 1: Bist du ein Mensch?</h3>
+        <h2>Schritt 1: Bist du ein Mensch?</h2>
         <p>
           Das ist leider nötig, damit wir nicht von SPAM-Bot aus dem Internet
           zugemüllt werden.
@@ -23,7 +23,7 @@
       </div>
 
       <div class="form-step">
-        <h3>Schritt 2: Beschreibe, was du hochlädst</h3>
+        <h2>Schritt 2: Beschreibe, was du hochlädst</h2>
       
         <form action="." method="post" >
           <div>
@@ -64,7 +64,7 @@
       </div>
 
       <div class="form-step">
-        <h3>Schritt 3: Bilder/Videos/Dateien hochladen.</h3>
+        <h2>Schritt 3: Bilder / Videos hochladen.</h2>
         <p>
           Am PC kannst beliebig viele Dateien und Verzeichnisse auch per Drag&Drop in den Bereich unterhalb ziehen.
         </p>
@@ -75,6 +75,10 @@
         </form>
       </div>
       
+    </div>
+    <div class="footer">
+      Copyright &copy; 2026 by Quax e.V. | <a href="https://www.quax-flieger.de/kontakt/impressum/">Impressum</a><br />
+      <a href="https://pqina.nl/filepond/">Powered by FilePond.</a>
     </div>
     <script type="javascript">
         var upload_id="{{ upload_id }}";
@@ -88,14 +92,15 @@
         FilePond.registerPlugin(FilePondPluginImageExifOrientation);
 
         const pond = FilePond.create(inputElement, {
+            /*credits: true,*/
             server: '/upload/',
             allowMultiple: true,
             labelIdle: 'Dateien per Drag & Drop hierhin ziehen oder <span class="filepond--label-action"> Durchsuchen </span>',
             labelFileProcessing: 'Upload',
-            labelFileProcessingComplete: "Fertig",
-            labelFileProcessingAborted: "Abgebrochen",
-            labelTapToCancel: "Tippen zum Abbrechen",
-            labelTapToUndo: "Tippen zum Löschen"
+            labelFileProcessingComplete: "bereit",
+            labelFileProcessingAborted: "abgebrochen",
+            labelTapToCancel: "Abbrechen",
+            labelTapToUndo: "Löschen"
         });
     </script>
   </body>
